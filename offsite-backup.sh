@@ -1,5 +1,5 @@
 #!/bin/bash
-# off-site backup script v1.0 (08.03.2014)
+# off-site backup script v1.1 (13.03.2014)
 # author: daniel "lws" nimmervoll
 # debian-blog.org | nimmervoll.eu
 
@@ -8,12 +8,13 @@ DVC='sde1'                # external drive device, eg. /dev/sde1
 MNTPNT='/mnt/off-site'    # mount point for external drive
 BCKPLCTN='/srv/DATA'      # location which should be synced with external drive
 WTTM='10'                 # wait time for devices, use higher value on older drives
+EXCLDLST='--exclude-from=/root/exclude.txt' # patch to the exclude list file for rsync, uncomment if not needed
 
 # color settings, no need to change!
-RST='\e[0m'               # reset everything
-GRN='\e[0;32m'            # green color
-RD='\e[0;31m'             # red color
-BLNK='\e[5m'              # blink, for the waiting indicator
+RST='\e[0m'       # reset everything
+GRN='\e[0;32m'    # green color
+RD='\e[0;31m'     # red color
+BLNK='\e[5m'      # blink, for the waiting indicator
 
 # mount external drive
 echo -en "1/6 Mounting Device: /dev/$DVC ${BLNK}..."
@@ -37,7 +38,7 @@ mount | grep /dev/$DVC >/dev/null
 
 # sync locations via rsync
 echo -en "4/6 Rsync: running ${BLNK}..."
-rsync  -gloptru $BCKPLCTN $MNTPNT
+rsync $EXCLDLST -gloptru $BCKPLCTN $MNTPNT
 echo -e "\r${RST}4/6 Rsync: ${GRN}DONE!${RST}                                    "
 
 # wait a bit so the drive can finish everything
