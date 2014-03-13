@@ -8,7 +8,7 @@ DVC='sde1'                # external drive device, eg. /dev/sde1
 MNTPNT='/mnt/off-site'    # mount point for external drive
 BCKPLCTN='/srv/DATA'      # location which should be synced with external drive
 WTTM='10'                 # wait time for devices, use higher value on older drives
-EXCLDLST='--exclude-from=/root/exclude.txt' # patch to the exclude list file for rsync, uncomment if not needed
+EXCLDLST='--exclude-from=/root/exclude.txt' # patch to the exclude list file for rsync, comment it out if not needed
 
 # color settings, no need to change!
 RST='\e[0m'       # reset everything
